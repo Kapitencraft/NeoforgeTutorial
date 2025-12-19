@@ -3,7 +3,7 @@ package net.kapitencraft.tutorial.event;
 import net.kapitencraft.tutorial.TutorialMod;
 import net.kapitencraft.tutorial.client.ModBlockEntityWithoutLevelRenderer;
 import net.kapitencraft.tutorial.client.models.PaladinShieldModel;
-import net.kapitencraft.tutorial.item.ModItems;
+import net.kapitencraft.tutorial.registry.ModItems;
 import net.kapitencraft.tutorial.item.armor.AbstractArmorItem;
 import net.kapitencraft.tutorial.item.armor.client.ArmorClientExtension;
 import net.kapitencraft.tutorial.item.armor.client.model.FrozenBlazeArmorModel;

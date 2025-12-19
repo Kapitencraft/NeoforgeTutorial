@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.kapitencraft.tutorial.TutorialMod;
 import net.kapitencraft.tutorial.client.models.PaladinShieldModel;
-import net.kapitencraft.tutorial.item.ModItems;
+import net.kapitencraft.tutorial.registry.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
