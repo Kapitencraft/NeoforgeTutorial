@@ -71,7 +71,7 @@ public class ArmorModel extends HumanoidModel<LivingEntity> {
 
         float f = 1.0F;
         if (pEntity.getFallFlyingTicks() > 4) {
-            f = (float)pEntity.getDeltaMovement().lengthSqr();
+            f = (float) pEntity.getDeltaMovement().lengthSqr();
             f /= 0.2F;
             f *= f * f;
         }
@@ -81,17 +81,17 @@ public class ArmorModel extends HumanoidModel<LivingEntity> {
         }
 
         this.rightBoot.xRot = Mth.cos(pLimbSwing * 0.6662F) * 1.4F * pLimbSwingAmount / f;
-        this.leftBoot.xRot = Mth.cos(pLimbSwing * 0.6662F + (float)Math.PI) * 1.4F * pLimbSwingAmount / f;
+        this.leftBoot.xRot = Mth.cos(pLimbSwing * 0.6662F + (float) Math.PI) * 1.4F * pLimbSwingAmount / f;
         this.rightBoot.yRot = 0.005F;
         this.leftBoot.yRot = -0.005F;
         this.rightBoot.zRot = 0.005F;
         this.leftBoot.zRot = -0.005F;
         if (this.riding) {
             this.rightBoot.xRot = -1.4137167F;
-            this.rightBoot.yRot = ((float)Math.PI / 10F);
+            this.rightBoot.yRot = ((float) Math.PI / 10F);
             this.rightBoot.zRot = 0.07853982F;
             this.leftLeg.xRot = -1.4137167F;
-            this.leftLeg.yRot = (-(float)Math.PI / 10F);
+            this.leftLeg.yRot = (-(float) Math.PI / 10F);
             this.leftLeg.zRot = -0.07853982F;
         }
     }

@@ -5,7 +5,6 @@ import net.minecraft.world.item.ShieldItem;
 
 public class PaladinShieldItem extends ShieldItem {
     public PaladinShieldItem() {
-        super(new Properties().rarity(Rarity.UNCOMMON).durability(598));
+        super(new Properties().rarity(Rarity.UNCOMMON));
     }
-
 }

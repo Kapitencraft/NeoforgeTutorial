@@ -3,7 +3,7 @@ package net.kapitencraft.tutorial.client;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.kapitencraft.tutorial.TutorialMod;
-import net.kapitencraft.tutorial.client.model.PaladinShieldModel;
+import net.kapitencraft.tutorial.client.models.PaladinShieldModel;
 import net.kapitencraft.tutorial.item.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.EntityModelSet;
@@ -17,12 +17,13 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 public class ModBlockEntityWithoutLevelRenderer extends BlockEntityWithoutLevelRenderer {
+    public static final ModBlockEntityWithoutLevelRenderer INSTANCE = new ModBlockEntityWithoutLevelRenderer(
+            Minecraft.getInstance().getBlockEntityRenderDispatcher(),
+            Minecraft.getInstance().getEntityModels()
+    );
+
     private final BlockEntityRenderDispatcher blockEntityRenderDispatcher;
     private final EntityModelSet entityModelSet;
-
-    public static final ModBlockEntityWithoutLevelRenderer INSTANCE = new ModBlockEntityWithoutLevelRenderer(
-            Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels()
-    );
 
     private PaladinShieldModel paladinShieldModel;
 
@@ -34,7 +35,7 @@ public class ModBlockEntityWithoutLevelRenderer extends BlockEntityWithoutLevelR
 
     @Override
     public void onResourceManagerReload(ResourceManager pResourceManager) {
-        this.paladinShieldModel = new PaladinShieldModel(this.entityModelSet.bakeLayer(PaladinShieldModel.LAYER_LOCATION));
+        this.paladinShieldModel = new PaladinShieldModel(entityModelSet.bakeLayer(PaladinShieldModel.LAYER_LOCATION));
     }
 
     @Override
@@ -42,11 +43,11 @@ public class ModBlockEntityWithoutLevelRenderer extends BlockEntityWithoutLevelR
         if (pStack.is(ModItems.PALADIN_SHIELD.get())) {
             pPoseStack.pushPose();
             pPoseStack.scale(1, -1, -1);
-            VertexConsumer bufferDirect = ItemRenderer.getFoilBufferDirect(pBuffer, this.paladinShieldModel.renderType(PALADIN_SHIELD_LOCATION), true, pStack.hasFoil());
-            paladinShieldModel.renderToBuffer(pPoseStack, bufferDirect, pPackedLight, pPackedOverlay, 0xFFFFFFFF);
+            VertexConsumer consumer = ItemRenderer.getFoilBufferDirect(pBuffer, this.paladinShieldModel.renderType(PALADIN_SHIELD_TEXTURE), true, pStack.hasFoil());
+            this.paladinShieldModel.renderToBuffer(pPoseStack, consumer, pPackedLight, pPackedOverlay, 0xFFFFFFFF);
             pPoseStack.popPose();
         }
     }
 
-    private static final ResourceLocation PALADIN_SHIELD_LOCATION = TutorialMod.res("textures/models/shield/paladin.png");
+    private static final ResourceLocation PALADIN_SHIELD_TEXTURE = TutorialMod.res("textures/models/shield/paladin.png");
 }
