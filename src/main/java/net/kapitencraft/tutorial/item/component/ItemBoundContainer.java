@@ -19,18 +19,18 @@ import java.util.function.Supplier;
 public class ItemBoundContainer<C extends ContainerAccessor> extends SimpleContainer implements MenuProvider {
     private final ItemStack owner;
     private final Supplier<DataComponentType<C>> typeSupplier;
-    private final Function<NonNullList<ItemStack>, C> componentConstructor;
+    private final Function<NonNullList<ItemStack>, C> containerConstructor;
 
-    public ItemBoundContainer(int size, ItemStack owner, Supplier<DataComponentType<C>> typeSupplier, Function<NonNullList<ItemStack>, C> componentConstructor) {
+    public ItemBoundContainer(int size, ItemStack owner, Supplier<DataComponentType<C>> typeSupplier, Function<NonNullList<ItemStack>, C> containerConstructor) {
         super(size);
         this.owner = owner;
         this.typeSupplier = typeSupplier;
-        this.componentConstructor = componentConstructor;
+        this.containerConstructor = containerConstructor;
         C c = owner.get(typeSupplier);
         if (c != null) {
             NonNullList<ItemStack> content = c.getContent();
             if (content.size() != size)
-                TutorialMod.LOGGER.warn("content size does not container size");
+                TutorialMod.LOGGER.warn("content size does match not container size");
             for (int i = 0; i < Math.min(content.size(), size); i++) {
                 this.setItem(i, content.get(i));
             }
@@ -39,7 +39,7 @@ public class ItemBoundContainer<C extends ContainerAccessor> extends SimpleConta
 
     @Override
     public void stopOpen(Player player) {
-        owner.set(typeSupplier, componentConstructor.apply(this.getItems()));
+        owner.set(typeSupplier, containerConstructor.apply(this.getItems()));
         super.stopOpen(player);
     }
 
@@ -49,7 +49,7 @@ public class ItemBoundContainer<C extends ContainerAccessor> extends SimpleConta
     }
 
     @Override
-    public @Nullable AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
-        return ChestMenu.threeRows(i, inventory, this);
+    public @Nullable AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
+        return ChestMenu.threeRows(containerId, playerInventory, this);
     }
 }
